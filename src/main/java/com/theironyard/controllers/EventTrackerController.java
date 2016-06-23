@@ -1,8 +1,10 @@
 package com.theironyard.controllers;
 
 import com.theironyard.entities.Event;
+import com.theironyard.entities.Message;
 import com.theironyard.entities.User;
 import com.theironyard.services.EventRepository;
+import com.theironyard.services.MessageRepository;
 import com.theironyard.services.UserRepository;
 import com.theironyard.utils.PasswordStorage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +27,19 @@ public class EventTrackerController {
     @Autowired
     EventRepository events;
 
+    @Autowired
+    MessageRepository messages;
+
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String home(HttpSession session, Model model) {
         String username = (String) session.getAttribute("username");
+
+
+        Iterable<Message> msgs = messages.findAll();
+        model.addAttribute("msgs", msgs);
+
+
+
         model.addAttribute("username", username);
         model.addAttribute("events", events.findAll());
         model.addAttribute("now", LocalDateTime.now());
@@ -63,5 +75,31 @@ public class EventTrackerController {
         Event event = new Event(description, LocalDateTime.parse(time), user);
         events.save(event);
         return "redirect:/";
+    }
+
+    @RequestMapping(path = "/addmessage", method = RequestMethod.POST)
+    public String addmessage(String text, String time, HttpSession session) {
+        String username = (String) session.getAttribute("username");
+        User user = users.findByName(username);
+        Message message = new Message(text, LocalDateTime.parse(time), user);
+        messages.save(message);
+
+        return "redirect:/";
+    }
+    @RequestMapping(path = "/deletemessage", method = RequestMethod.POST)
+    public String deletemessage(HttpSession session, int id) {
+        messages.delete(id);
+
+        return "redirect:/";
+
+    }
+    @RequestMapping(path ="/editmessage", method = RequestMethod.GET)
+    public  String editmessage(Model model, int id) {
+        Message msg = messages.findById(id);
+        model.addAttribute(msg);
+        model.addAttribute("text",msg.text);
+        model.addAttribute("id", msg.id);
+        return "redirect:/";
+
     }
 }
