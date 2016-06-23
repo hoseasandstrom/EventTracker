@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/EventTracker.iml" filepath="$PROJECT_DIR$/.idea/modules/EventTracker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/EventTracker_main.iml" filepath="$PROJECT_DIR$/.idea/modules/EventTracker_main.iml" group="EventTracker" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/EventTracker_test.iml" filepath="$PROJECT_DIR$/.idea/modules/EventTracker_test.iml" group="EventTracker" />
+    </modules>
+  </component>
+</project>
