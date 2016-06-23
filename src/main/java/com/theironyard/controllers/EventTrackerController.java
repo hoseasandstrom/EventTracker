@@ -3,6 +3,7 @@ package com.theironyard.controllers;
 import com.theironyard.entities.Event;
 import com.theironyard.entities.Message;
 import com.theironyard.entities.User;
+import com.theironyard.services.EventBlogRepository;
 import com.theironyard.services.EventRepository;
 import com.theironyard.services.MessageRepository;
 import com.theironyard.services.UserRepository;
@@ -29,6 +30,9 @@ public class EventTrackerController {
 
     @Autowired
     MessageRepository messages;
+
+    @Autowired
+    EventBlogRepository eventblogs;
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String home(HttpSession session, Model model) {
