@@ -6,6 +6,57 @@
 </head>
 <body>
 
+{{^username}}
+<form action="/login" method="post">
+    <input type="text" name="username" placeholder="Username"/>
+    <input type="password" name="password" placeholder="Password"/>
+    <button type="submit">Login</button>
+</form>
+{{/username}}
 
+{{#username}}
+Hello, {{.}}!
+<form action="/logout" method="post">
+    <button type="submit">Logout</button>
+</form>
+
+<br><br>
+
+<form action="/create-event" method="post">
+    <input type="text" name="description" placeholder="Description"/>
+    <input type="datetime-local" name="time" hiddenvalue="{{now}}"/>
+    <button type="submit">Create Event</button>
+</form>
+{{/username}}
+
+{{#events}}
+{{description}}<br>
+{{/events}}
+
+
+
+<form action="/addmessage" method="post">
+    <input type="text" name="message" placeholder="Write your message"/>
+    <button type="submit">Submit</button>
+</form>
+
+<br>
+
+<ol>
+    {{#messages}}
+    <li>
+        {{text}}
+        <form action="/editmessage" type="put" style="display: inline-block;">
+            <input type="hidden" name="id" value="{{id}}"/>
+            <button type="submit"><strong>Edit</strong></button>
+        </form>
+        <form action="/deletemessage" method="post" style="display: inline-block">
+            <input type="hidden" name="id" value="{{id}}"/>
+            <br>
+            <button type="submit"><strong>Delete</strong></button>
+        </form>
+    </li>
+    {{/messages}}
+</ol>
 </body>
 </html>

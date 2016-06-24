@@ -3,7 +3,6 @@ package com.theironyard.controllers;
 import com.theironyard.entities.Event;
 import com.theironyard.entities.Message;
 import com.theironyard.entities.User;
-import com.theironyard.services.EventBlogRepository;
 import com.theironyard.services.EventRepository;
 import com.theironyard.services.MessageRepository;
 import com.theironyard.services.UserRepository;
@@ -31,8 +30,8 @@ public class EventTrackerController {
     @Autowired
     MessageRepository messages;
 
-    @Autowired
-    EventBlogRepository eventblogs;
+    //@Autowired
+    //EventBlogRepository eventblogs;
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String home(HttpSession session, Model model) {
@@ -82,10 +81,10 @@ public class EventTrackerController {
     }
 
     @RequestMapping(path = "/addmessage", method = RequestMethod.POST)
-    public String addmessage(String text, String time, HttpSession session) {
+    public String addmessage(String text, HttpSession session) {
         String username = (String) session.getAttribute("username");
         User user = users.findByName(username);
-        Message message = new Message(text, LocalDateTime.parse(time), user);
+        Message message = new Message(text , user);
         messages.save(message);
 
         return "redirect:/";
@@ -101,8 +100,8 @@ public class EventTrackerController {
     public  String editmessage(Model model, int id) {
         Message msg = messages.findById(id);
         model.addAttribute(msg);
-        model.addAttribute("text",msg.text);
-        model.addAttribute("id", msg.id);
+        model.addAttribute("text");
+        model.addAttribute("id");
         return "redirect:/";
 
     }

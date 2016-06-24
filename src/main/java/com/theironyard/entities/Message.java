@@ -11,11 +11,9 @@ import java.time.LocalDateTime;
 public class Message {
     @Id
     @GeneratedValue
-    public
     int id;
 
     @Column(nullable = false)
-    public
     String text;
 
     @Column(nullable = false)

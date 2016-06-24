@@ -16,11 +16,12 @@ public class Event {
     @Column(nullable = false)
     String description;
 
-    @Column(nullable = false)
+
     LocalDateTime time;
 
     @ManyToOne
     User user;
+    //Message message;
 
 
     public Event() {
